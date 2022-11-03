@@ -1,0 +1,76 @@
+# volumes:
+#   config:
+#     driver_opts:
+#       o : volume
+#       type : none
+#       device: /home/lescribe/Documents/Depot/inception/srcs/nginx/test/
+        #   type : volume
+        #   source : ./nginx/test
+        #   target : /etc/nginx/http.d/
+    #   name: config
+    #   driver_opts:
+    #     device: ./nginx/test/
+    # website:
+    #   driver_opts:
+    #     device: ./nginx/site/
+
+
+networks:
+  frontend:
+  backend:
+
+services:
+  nginx:
+    build: ./requirement/Nginx/
+    container_name: nginx
+    ports:
+      - "443:443"
+    networks:
+      - frontend
+    depends_on:
+      - wordpress
+    restart: on-failure
+        #   volumes:
+        #     - ${PWD}/nginx/test:/etc/nginx/http.d/
+        #    - ./nginx/config:/etc/nginx/http.d/
+        #    - ./nginx/website:/var/www/localhost/
+
+  wordpress:
+    build: ./requirement/Wordpress
+    container_name: wordpress
+    expose:
+      - "9000"
+    depends_on:
+      - mariadb
+    networks:
+      - frontend
+      - backend
+    env_file:
+      - .env
+    restart: on-failure
+        #   environment:
+        #     - WP_PATH=${WP_PATH}
+        #     - DB_HOST=${DB_HOST}
+        #     - DB_NAME=${DB_NAME}
+        #     - DB_USERNAME=${DB_USERNAME}
+        #     - DB_PASSWORD=${DB_PASSWORD}
+        #     - DB_ADMIN=${DB_ADMIN}
+        #     - DB_ADMIN_PASS=${DB_ADMIN_PASS}
+
+  mariadb:
+    build: ./requirement/Mariadb
+    container_name: mariadb
+    ports:
+      - "3306"
+    networks:
+      - backend
+    env_file:
+      - .env
+    restart: on-failure
+
+        #environment:
+        #  - DB_NAME=${DB_NAME}
+        #  - DB_USERNAME=${DB_USERNAME}
+        #  - DB_PASSWORD=${DB_PASSWORD}
+        #  - DB_ADMIN=${DB_ADMIN}
+        #  - DB_ADMIN_PASS=${DB_ADMIN_PASS}
