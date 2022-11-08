@@ -1,9 +1,9 @@
 all : up
 
 up :
-	docker compose up
+	docker compose up -d
 
-print:
+print :
 	docker images -aq
 
 clean :

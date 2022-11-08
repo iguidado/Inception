@@ -6,7 +6,6 @@
  - [ ] Nginx should proxy php on container bellow
  - [ ] it is the entrypoint for stack on port 443
 
-
 - [ ] container Wordpress + php-fpm
 
 - [ ] container with MariaDB
@@ -18,13 +17,29 @@
 
 - [ ] usage of --links or network:host is forbidden
 
-- [ ] container should reste in case of crash
+- [ ] container should restart in case of crash
+ - Shall be done by adding `restart : on-failure` node to docker compose services
+> configuration
 
 - [ ] Docker compose to orchestrate container
 
 ## Docker
+### Docker compose
 
-### Docker-compose
+Docker compose is a tool to orchestrate your container. You can use it on
+command line in an imperative way or write a docker-compose.yml to use it in a
+declarative way.
+
+We will do latest since it is easier to build up architecture and maintain
+project. Using docker compose as command line is ineffective when you need
+to manage more than one container at the same time.
+
+Yaml file are commonly used as configuration file. It syntax organization looks
+like python (it is really indentation sensitive).
+note that JSON syntax is a valid yaml substitute.
+
+We shall build a first docker-compose including only official docker images.
+You should check images tag to build dependendly of your architecture.
 
 ---
 ## Nginx
