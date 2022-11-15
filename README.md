@@ -25,7 +25,6 @@
 
 ## Docker
 ### Docker compose
-
 Docker compose is a tool to orchestrate your container. You can use it on
 command line in an imperative way or write a docker-compose.yml to use it in a
 declarative way.
@@ -36,7 +35,7 @@ to manage more than one container at the same time.
 
 Yaml file are commonly used as configuration file. It syntax organization looks
 like python (it is really indentation sensitive).
-note that JSON syntax is a valid yaml substitute.
+Note that JSON syntax is a valid yaml substitute.
 
 We shall build a first docker-compose including only official docker images.
 You should check images tag to build dependendly of your architecture.
@@ -104,11 +103,9 @@ These request shall be treated by php-fpm service.
 ---
 
 ## Wordpress
-
 Wordpress container will contain wordpress files (since it is a website) and php-fpm
 server as said above.
 
 ## Mariadb
-
 Mariadb shall be pre-configured with Wordpress databases, admin and user.
 

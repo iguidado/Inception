@@ -14,7 +14,6 @@ sudo apt-get install \
 
 #Add docker GPG Key (needed to certificate repository)
 sudo mkdir -p /etc/apt/keyrings
-
 curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 
 #Install Docker engine

@@ -30,13 +30,13 @@ services:
       - wordpress
     restart: on-failure
     volumes:
-      - /home//etc/nginx/http.d/
+      - /home/data/wordpress:/var/www/wordpress
         #    - ./nginx/config:/etc/nginx/http.d/
         #    - ./nginx/website:/var/www/localhost/
 
   wordpress:
-    build: ./requirement/Wordpress
     container_name: wordpress
+    image: wordpress:6.1.0-php8.0-fpm-alpine
     expose:
       - "9000"
     depends_on:
@@ -47,6 +47,8 @@ services:
     env_file:
       - .env
     restart: on-failure
+    volumes:
+      - /home/data/wordpress:/var/www/wordpress
         #   environment:
         #     - WP_PATH=${WP_PATH}
         #     - DB_HOST=${DB_HOST}
@@ -57,7 +59,7 @@ services:
         #     - DB_ADMIN_PASS=${DB_ADMIN_PASS}
 
   mariadb:
-    image: mariadb
+    image: mariadb:10.10.1-rc-jammy
     container_name: mariadb
     ports:
       - "3306"

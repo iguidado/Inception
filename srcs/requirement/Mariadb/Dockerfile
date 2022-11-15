@@ -25,7 +25,7 @@ RUN chmod +x /tools/setup.sh && /tools/setup.sh
 
 #RUN /etc/init.db/mariadb setup
 
-EXPOSE 3306
+#EXPOSE 3306
 
 #CMD ["/etc/bin/mysqld_safe", "--dir=/var/lib"]
 CMD ["mysqld_safe"]
