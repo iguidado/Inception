@@ -19,9 +19,12 @@ RUN openssl req -x509 -nodes -days 36500 -newkey rsa:2048\
 	-subj '/CN=localhost'
 #------------------------------------------------------------------------------
 
+RUN  ln -s /dev/stdout /var/log/nginx/access.log && ln -s /dev/stderr /var/log/nginx/error.log 
+
+COPY conf/default.conf /etc/nginx/http.d/
 
 # Web file should be owned by a user dedicated to avoid security issue
-#RUN chown -R www-data:www-data /var/www/html
+RUN mkdir -p /var/www/wordpress/ && chown -R nginx:nginx /var/www/wordpress && chmod -R 660 /var/www/wordpress
 
 # Cleaning
 #RUN rm -rf /root/srcs/script/

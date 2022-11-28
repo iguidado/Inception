@@ -20,7 +20,6 @@ RUN chmod +x /tools/setup.sh && /tools/setup.sh
 #	quit
 #EOF
 
-
 #RUN mariadb < init.sql && killall -9 mysqld_safe
 
 #RUN /etc/init.db/mariadb setup
@@ -28,5 +27,5 @@ RUN chmod +x /tools/setup.sh && /tools/setup.sh
 #EXPOSE 3306
 
 #CMD ["/etc/bin/mysqld_safe", "--dir=/var/lib"]
-CMD ["mysqld_safe"]
 #CMD ["tail", "-f", "/dev/null"]
+CMD ["mysqld_safe"]

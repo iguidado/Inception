@@ -4,7 +4,7 @@ RUN apk add --no-cache php-fpm php curl php-common php-mbstring php-bz2
 
 # Wordpress installation : we use wp-cli to automate site installation
 # download
-ARG WP_PATH
+#ARG WP_PATH
 
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 
@@ -12,20 +12,19 @@ RUN chmod +x wp-cli.phar
 
 RUN mv wp-cli.phar /usr/local/bin/wp
 
-RUN echo hello ${WP_PATH} > test.lol
-#RUN wp --allow-root core download --path=${WP_PATH} --locale=fr_FR
+RUN wp --allow-root core download --path=${WP_PATH} --locale=fr_FR
 
-#RUN wp --allow-root config create --path=${WP_PATH}  --dbhost=${DB_HOST}\
-#	--dbname=${DB_NAME} --dbuser=${DB_USERNAME} --dbpass=${DB_PASSWORD}
+RUN wp --allow-root config create --path=${WP_PATH}  --dbhost=${WORDPRESS_DB_HOST}\
+	--dbname=${WORDPRESS_DB_NAME} --dbuser=${WORDPRESS_DB_USER} --dbpass=${WORDPRESS_DB_PASS}
 
-#RUN service mysql start &&\
-#	wp --allow-root --path=${WP_PATH} db create
+RUN wp --allow-root --path=${WP_PATH} db create
+
+RUN sed "s/127.0.0.1/0.0.0.0/" -i /etc/php8/php-fpm.d/www.conf
 
 
-#RUN service mysql start &&\
-#	wp --allow-root --path=${WP_PATH} core install \
-#	--url=localhost/wordpress/ --title=ft_wordpress \
-#	--admin_user=${WP_USER} --admin_password=${WP_PASS} \
-#	--admin_email=${WP_MAIL} --skip-email
+RUN 	wp --allow-root --path=${WP_PATH} core install \
+	--url=iguidado.42.fr --title=ft_wordpress \
+	--admin_user=${WORDPRESS_USER} --admin_password=${WORDPRESS_PASS} \
+	--admin_email=iguidado@stud.42.fr --skip-email
 
 CMD ["php-fpm8", "-F"]

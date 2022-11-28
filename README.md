@@ -100,6 +100,10 @@ These request shall be treated by php-fpm service.
 
 ```
 
+### SSL configuration
+https://stackoverflow.com/questions/10175812/how-to-generate-a-self-signed-ssl-certificate-using-openssl
+https://www.nginx.com/blog/secure-distribution-ssl-private-keys-nginx/
+
 ---
 
 ## Wordpress

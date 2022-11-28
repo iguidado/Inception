@@ -15,6 +15,9 @@ sudo apt-get install -y \
    lsb-release
 
 #Add docker GPG Key (needed to certificate repository)
+sudo groupadd docker
+sudo usermod -aG docker $USER
+
 sudo mkdir -p /etc/apt/keyrings
 sudo curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 

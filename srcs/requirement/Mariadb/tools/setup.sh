@@ -5,4 +5,5 @@ sed -i "s/DB_ADMIN_PASS/$DB_ADMIN_PASS/g" /tools/init.sql
 sed -i "s/DB_ADMIN/$DB_ADMIN/g" /tools/init.sql
 
 mysqld --user=mysql < /tools/init.sql &
-killall -9 mysqld
+PID=$!
+kill -9 $PID
