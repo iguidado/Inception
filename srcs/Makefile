@@ -16,10 +16,10 @@ rm:
 	docker compose rm
 
 clean :
-	-docker rm $(docker ps -aq)
+	-docker rm -f $$(docker ps -aq)
 
 fclean : clean
-	-docker rmi $(docker images -aq)
+	-docker rmi -f $$(docker images -aq)
 
 re: fclean all
 

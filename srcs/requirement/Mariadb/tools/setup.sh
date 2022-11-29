@@ -1,9 +1,12 @@
-sed -i "s/DB_NAME/$DB_NAME/g" /tools/init.sql
-sed -i "s/USERNAME/$DB_USERNAME/g" /tools/init.sql
-sed -i "s/DB_PASS/$DB_PASS/g" /tools/init.sql
-sed -i "s/DB_ADMIN_PASS/$DB_ADMIN_PASS/g" /tools/init.sql
-sed -i "s/DB_ADMIN/$DB_ADMIN/g" /tools/init.sql
+sed -i "s/DB_NAME/$MARIADB_NAME/g" /tools/init.sql
+sed -i "s/USERNAME/$MARIADB_USER/g" /tools/init.sql
+sed -i "s/DB_PASS/$MARIADB_PASS/g" /tools/init.sql
 
-mysqld --user=mysql < /tools/init.sql &
-PID=$!
-kill -9 $PID
+sed -i "s/DB_ADMIN_PASS/$MARIADB_ADMIN_PASS/g" /tools/init.sql
+sed -i "s/DB_ADMIN/$MARIADB_ADMIN/g" /tools/init.sql
+
+#mysqld --user=mysql &
+#mysql < /tools/init.sql
+#PID=$!
+#kill -9 $PID
+#wait $PID

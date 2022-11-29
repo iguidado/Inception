@@ -1,16 +1,23 @@
 FROM alpine:3.16
 
-RUN apk add --no-cache mariadb mariadb-client openrc
+	RUN apk add --no-cache mariadb mariadb-client openrc
 
 RUN mkdir /run/openrc/ && touch /run/openrc/softlevel
 
-RUN /usr/bin/mariadb-install-db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
+ARG MARIADB_NAME MARIADB_USER MARIADB_PASS MARIADB_ADMIN MARIADB_ADMIN_PASS
 
-COPY ./tools/ /tools/
 
-ARG DB_ADMIN DB_ADMIN_PASS
+#COPY conf/mariadb-server.cnf /etc/my.cnf.d/mariadb-server.cnf
+#RUN sed "s/#bin/bin/" -i /etc/my.cnf.d/mariadb-server.cnf && \
+#	sed "s/skip/#skip/" -i /etc/my.cnf.d/mariadb-server.cnf
 
-RUN chmod +x /tools/setup.sh && /tools/setup.sh
+RUN /usr/bin/mariadb-install-db --datadir=/var/lib/mysql
+
+
+#RUN mkdir /run/mysqld && chown -R mysql:mysql /run/mysqld
+#COPY ./tools/ /tools/
+
+#RUN chmod +x /tools/setup.sh && /tools/setup.sh
 
 #RUN mysld_safe && mariadb -u root <<EOF
 #	CREATE wp_db;
@@ -26,6 +33,6 @@ RUN chmod +x /tools/setup.sh && /tools/setup.sh
 
 #EXPOSE 3306
 
-#CMD ["/etc/bin/mysqld_safe", "--dir=/var/lib"]
-#CMD ["tail", "-f", "/dev/null"]
-CMD ["mysqld_safe"]
+#CMD ["mysqld_safe", "--dir=/var/lib/mysql"]
+CMD ["tail", "-f", "/dev/null"]
+#CMD ["mysqld", "--user=mysql"]
