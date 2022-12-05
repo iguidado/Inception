@@ -3,42 +3,42 @@ networks:
   backend:
 
 services:
-  # nginx:
-  #   build:
-  #     context: ./requirement/Nginx/
-  #   container_name: nginx
-  #   ports:
-  #     - "443:443"
-  #   networks:
-  #     - frontend
-  #   depends_on:
-  #     - wordpress
-  #   restart: on-failure
-  #   volumes:
-  #     - ${HOME}/data/wordpress:/var/www/wordpress/
-  #     #      - ./nginx/config:/etc/nginx/http.d/
+  nginx:
+    build:
+      context: ./requirement/Nginx/
+    container_name: nginx
+    ports:
+      - "443:443"
+    networks:
+      - frontend
+    depends_on:
+      - wordpress
+    restart: on-failure
+    volumes:
+      - ${HOME}/data/wordpress:/var/www/wordpress/
+      #      - ./nginx/config:/etc/nginx/http.d/
   
-        # wordpress:
-        #   environment:
-        #     - WP_PATH=${WP_PATH}
-        #     - WORDPRESS_DB_HOST=${MARIADB_HOST}
-        #     - WORDPRESS_DB_USER=${MARIADB_USER}
-        #     - WORDPRESS_DB_PASSWORD=${MARIADB_PASSWORD}
-        #     - WORDPRESS_DB_NAME=${MARIADB_DATABASE}
-        #     - WORDPRESS_TABLE_PREFIX=${TABLE_PREFIX}
-        #   build:
-        #     context: ./requirement/Wordpress
-        #   container_name: wordpress
-        #   expose:
-        #     - "9000"
-        #   depends_on:
-        #     - mariadb
-        #   networks:
-        #     - frontend
-        #     - backend
-        #   restart: on-failure
-        #   volumes:
-        #     - ${HOME}/data/wordpress:/var/www/wordpress/
+  wordpress:
+    environment:
+      - WP_PATH=${WP_PATH}
+      - WORDPRESS_DB_HOST=${MARIADB_HOST}
+      - WORDPRESS_DB_USER=${MARIADB_USER}
+      - WORDPRESS_DB_PASS=${MARIADB_PASSWORD}
+      - WORDPRESS_DB_NAME=${MARIADB_DATABASE}
+      - WORDPRESS_TABLE_PREFIX=${TABLE_PREFIX}
+    build:
+      context: ./requirement/Wordpress
+    container_name: wordpress
+    expose:
+      - "9000"
+    depends_on:
+      - mariadb
+    networks:
+      - frontend
+      - backend
+    restart: on-failure
+    volumes:
+      - ${HOME}/data/wordpress:/var/www/wordpress/
 
   mariadb:
     env_file: .env
@@ -51,17 +51,11 @@ services:
         - MARIADB_ADMIN=${MARIADB_USER}
         - MARIADB_ADMIN_PASS=${MARIADB_PASSWORD}
     container_name: mariadb
-    ports:
+    expose:
       - "3306"
     networks:
       - backend
     restart: on-failure
-      #environment:
-      #  - DB_NAME=${DB_NAME}
-      #  - DB_USERNAME=${DB_USERNAME}
-      #  - DB_PASSWORD=${DB_PASSWORD}
-      #  - DB_ADMIN=${DB_ADMIN}
-      #  - DB_ADMIN_PASS=${DB_ADMIN_PASS}
 
       # volumes:
       #   config:

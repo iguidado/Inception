@@ -14,6 +14,8 @@ sudo apt-get install -y \
    gnupg \
    lsb-release
 
+sudo echo "127.0.0.1 ${USER}.42.fr" >> /etc/hosts
+
 #Add docker GPG Key (needed to certificate repository)
 sudo groupadd docker
 sudo usermod -aG docker $USER
