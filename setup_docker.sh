@@ -41,6 +41,5 @@ sudo mkdir -p /home/$(logname)/data/
 sudo wget https://fr.wordpress.org/latest-fr_FR.tar.gz -O - | zcat | tar x -C /home/$(logname)/data/
 
 ##Databases
-
 #Domain name
 sudo echo "127.0.1.1 $(logname).42.fr" >> /etc/hosts

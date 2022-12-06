@@ -11,12 +11,12 @@ services:
       - "443:443"
     networks:
       - frontend
-    depends_on:
-      - wordpress
     restart: on-failure
     volumes:
-      - ${HOME}/data/wordpress:/var/www/wordpress/
+      - /home/iguidado/data/wordpress:/var/www/wordpress/
       #      - ./nginx/config:/etc/nginx/http.d/
+    depends_on:
+      - wordpress
   
   wordpress:
     environment:
@@ -38,8 +38,8 @@ services:
       - backend
     restart: on-failure
     volumes:
-      - ${HOME}/data/wordpress:/var/www/wordpress/
-
+      - /home/iguidado/data/wordpress:/var/www/wordpress/
+ 
   mariadb:
     env_file: .env
     build:
@@ -72,4 +72,3 @@ services:
       # website:
       #   driver_opts:
       #     device: ./nginx/site/
-

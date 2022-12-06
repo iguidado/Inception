@@ -1,10 +1,10 @@
 all : build up
 
 up :
-	docker compose up -d
+	sudo docker compose up -d
 
 build:
-	docker compose build
+	sudo docker compose build
 
 print :
 	docker images -aq
