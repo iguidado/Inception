@@ -26,8 +26,4 @@ COPY conf/default.conf /etc/nginx/http.d/
 # Web file should be owned by a user dedicated to avoid security issue
 RUN mkdir -p /var/www/wordpress/ && chown -R nginx:nginx /var/www/wordpress && chmod -R 660 /var/www/wordpress
 
-# Cleaning
-#RUN rm -rf /root/srcs/script/
-#run rm -rf /root/srcs/cfg/
-
 CMD ["nginx", "-g", "daemon off;"]

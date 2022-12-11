@@ -28,6 +28,13 @@ services:
       - WORDPRESS_TABLE_PREFIX=${TABLE_PREFIX}
     build:
       context: ./requirement/Wordpress
+      args:
+        - WP_PATH=${WP_PATH}
+        - WORDPRESS_DB_HOST=${MARIADB_HOST}
+        - WORDPRESS_DB_USER=${MARIADB_USER}
+        - WORDPRESS_DB_PASS=${MARIADB_PASSWORD}
+        - WORDPRESS_DB_NAME=${MARIADB_DATABASE}
+        - WORDPRESS_TABLE_PREFIX=${TABLE_PREFIX}
     container_name: wordpress
     expose:
       - "9000"
