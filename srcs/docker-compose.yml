@@ -13,7 +13,7 @@ services:
       - frontend
     restart: on-failure
     volumes:
-      - /home/iguidado/data/wordpress:/var/www/wordpress/
+      - ~/data/wordpress:/var/www/wordpress/
       #      - ./nginx/config:/etc/nginx/http.d/
     depends_on:
       - wordpress
@@ -45,7 +45,7 @@ services:
       - backend
     restart: on-failure
     volumes:
-      - /home/iguidado/data/wordpress:/var/www/wordpress/
+      - ~/data/wordpress:/var/www/wordpress/
  
   mariadb:
     env_file: .env
