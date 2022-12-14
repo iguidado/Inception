@@ -14,18 +14,17 @@ services:
     restart: on-failure
     volumes:
       - ~/data/wordpress:/var/www/wordpress/
-      #      - ./nginx/config:/etc/nginx/http.d/
     depends_on:
       - wordpress
   
   wordpress:
-    environment:
-      - WP_PATH=${WP_PATH}
-      - WORDPRESS_DB_HOST=${MARIADB_HOST}
-      - WORDPRESS_DB_USER=${MARIADB_USER}
-      - WORDPRESS_DB_PASS=${MARIADB_PASSWORD}
-      - WORDPRESS_DB_NAME=${MARIADB_DATABASE}
-      - WORDPRESS_TABLE_PREFIX=${TABLE_PREFIX}
+    #   environment:
+    #     - WP_PATH=${WP_PATH}
+    #     - WORDPRESS_DB_HOST=${MARIADB_HOST}
+    #     - WORDPRESS_DB_USER=${MARIADB_USER}
+    #     - WORDPRESS_DB_PASS=${MARIADB_PASSWORD}
+    #     - WORDPRESS_DB_NAME=${MARIADB_DATABASE}
+    #     - WORDPRESS_TABLE_PREFIX=${TABLE_PREFIX}
     build:
       context: ./requirement/Wordpress
       args:
@@ -53,8 +52,6 @@ services:
       context: ./requirement/Mariadb
       args: 
         - MARIADB_NAME=${MARIADB_DATABASE}
-        - MARIADB_USER=${MARIADB_LAMBDA_USER}
-        - MARIADB_PASS=${MARIADB_LAMBDA_PASS}
         - MARIADB_ADMIN=${MARIADB_USER}
         - MARIADB_ADMIN_PASS=${MARIADB_PASSWORD}
     container_name: mariadb

@@ -8,6 +8,7 @@ sed -i "s/DB_ADMIN/$MARIADB_ADMIN/g" /tools/init.sql
 mysqld --user=mysql &
 sleep 2
 mysql < /tools/init.sql
+mysql ${MARIADB_NAME} < /tools/export.sql
 #PID=$!
 #kill -9 $PID
 #wait $PID

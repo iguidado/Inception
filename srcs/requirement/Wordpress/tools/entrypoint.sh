@@ -1,6 +1,6 @@
 #!/bin/sh
 
-cp -r /root/wordpress /var/www/wordpress
+cp -r /root/wordpress/* /var/www/wordpress
 
 #wp core install --allow-root \
 #	--path=/var/www/wordpress --title=ft_wordpress --url=iguidado.42.fr \
