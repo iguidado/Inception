@@ -5,7 +5,7 @@ GRANT ALL PRIVILEGES ON DB_NAME.* TO 'DB_ADMIN'@'%';
 
 
 DROP DATABASE test;
-ALTER USER 'root'@'localhost' identified by 'adception';
+ALTER USER 'root'@'localhost' identified by 'MARIADB_ROOT_PASS';
 DELETE FROM mysql.user WHERE User='';
 
 FLUSH PRIVILEGES;
