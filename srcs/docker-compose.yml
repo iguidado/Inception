@@ -61,7 +61,7 @@ services:
         - DB_ADMIN_PASS=${MARIADB_PASSWORD}
         - MARIADB_ROOT_PASS=${MARIADB_ROOT_PASS}
     volumes:
-      - ~/data/db:/var/lib/mysql/
+      - /home/iguidado/data/db:/var/lib/mysql/
     container_name: mariadb
     expose:
       - "3306"

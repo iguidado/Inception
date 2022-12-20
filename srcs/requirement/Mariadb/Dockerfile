@@ -23,7 +23,9 @@ RUN /usr/bin/mariadb-install-db --datadir=/var/lib/mysql
 RUN mkdir /run/mysqld && chown -R mysql:mysql /run/mysqld
 COPY ./tools/ /tools/
 
-#RUN chmod +x /tools/setup.sh && /tools/setup.sh
+RUN chmod +x /tools/entrypoint.sh /tools/setup.sh
+
+RUN chmod +x /tools/init.sh && /tools/init.sh
 
 #COPY conf/mariadb-server.cnf /etc/my.cnf.d/mariadb-server.cnf
 #RUN mysld_safe && mariadb -u root <<EOF
@@ -42,4 +44,5 @@ COPY ./tools/ /tools/
 
 #CMD ["mysqld_safe", "--dir=/var/lib/mysql"]
 #CMD ["tail", "-f", "/dev/null"]
-CMD ["mysqld", "--user=mysql"]
+#CMD ["mysqld", "--user=mysql"]
+CMD ["./tools/entrypoint.sh"]

@@ -7,19 +7,19 @@ build:
 	sudo docker compose build
 
 print :
-	docker images -aq
+	sudo docker images -aq
 
 stop:
-	docker compose stop
+	sudo docker compose stop
 
 rm:
-	docker compose rm
+	sudo docker compose rm
 
 clean :
-	-docker rm -f $$(docker ps -aq)
+	-sudo docker rm -f $$(sudo docker ps -aq)
 
 fclean : clean
-	-docker rmi -f $$(docker images -aq)
+	-sudo docker rmi -f $$(sudo docker images -aq)
 
 re: fclean all
 
