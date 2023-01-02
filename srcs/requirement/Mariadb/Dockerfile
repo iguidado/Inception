@@ -4,8 +4,6 @@ RUN addgroup -S mysql && adduser -S -g mysql mysql
 
 RUN apk add --no-cache mariadb mariadb-client openrc
 
-
-
 RUN mkdir /run/openrc/ && touch /run/openrc/softlevel
 
 ARG DB_NAME MARIADB_USER DB_ADMIN DB_ADMIN_PASS MARIADB_ROOT_PASS 
@@ -45,4 +43,5 @@ RUN chmod +x /tools/init.sh && /tools/init.sh
 #CMD ["mysqld_safe", "--dir=/var/lib/mysql"]
 #CMD ["tail", "-f", "/dev/null"]
 #CMD ["mysqld", "--user=mysql"]
+
 CMD ["./tools/entrypoint.sh"]

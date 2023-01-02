@@ -3,10 +3,10 @@ networks:
   backend:
 
 services:
-  adminer:
-    image: adminer
-    container_name: adminer
-
+        #        adminer:
+        #          image: adminer
+        #          container_name: adminer
+        #       
   nginx:
     build:
       context: ./requirement/Nginx/
@@ -17,10 +17,10 @@ services:
       - frontend
     restart: on-failure
     volumes:
-      - ~/data/wordpress:/var/www/wordpress/
+      - ~/data/:/var/www/
     depends_on:
       - wordpress
-
+ 
   wordpress:
     #   environment:
     #     - WP_PATH=${WP_PATH}

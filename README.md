@@ -113,3 +113,8 @@ server as said above.
 ## Mariadb
 Mariadb shall be pre-configured with Wordpress databases, admin and user.
 
+
+## Misc
+wordpress admin :
+	user : inception
+	password : inception2022

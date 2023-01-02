@@ -1,11 +1,16 @@
 #!/bin/sh
 
-cp -r /root/wordpress/* /var/www/wordpress
+if [ ! $(ls /var/www/wordpress | grep ".*") ]
+then
+	wp
+	cp -r /root/wordpress/* /var/www/wordpress
+fi
 
-#wp core install --allow-root \
-#	--path=/var/www/wordpress --title=ft_wordpress --url=iguidado.42.fr \
-#	--admin_user=Marion --admin_password=Cotillard \
-#	--admin_email=Macotill@nulpar.com --skip-email
+
+wp core install --allow-root \
+	--path=/var/www/wordpress --title=ft_wordpress --url=iguidado.42.fr \
+	--admin_user=Marion --admin_password=Cotillard \
+	--admin_email=Macotill@nulpar.com --skip-email
 
 #if [ ! -d /var/www/wordpress/ ]
 #then
@@ -20,5 +25,8 @@ cp -r /root/wordpress/* /var/www/wordpress
 #then
 #	wget https://api.wordpress.org/secret-key/1.1/salt/ -O /var/www/wordpress/salt.php
 #fi
+
+
+chown -R nobody:nobody /var/www/wordpress
 
 php-fpm8 -F
