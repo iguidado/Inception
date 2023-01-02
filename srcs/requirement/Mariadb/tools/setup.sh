@@ -20,10 +20,9 @@ mysql < /tools/init.sql
 sleep 1
 
 
-if  mariadb -uroot -padception -e "show tables from wp" | grep ".*" &> /dev/null
+if ! mariadb -uroot -padception -e "show tables from wp" | grep ".*" &> /dev/null
 then
-	echo hello world
-if
-mysql wp -uroot -padception < /tools/export.sql
+	mysql wp -uroot -padception < /tools/export.sql
+fi
 kill -9 $PID
 wait $PID
