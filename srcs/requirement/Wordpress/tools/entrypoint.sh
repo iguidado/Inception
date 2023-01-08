@@ -1,16 +1,15 @@
 #!/bin/sh
 
-if [ ! $(ls /var/www/wordpress | grep ".*") ]
+if ! ls /var/www/wordpress | grep ".*" > /dev/null
 then
-	wp
 	cp -r /root/wordpress/* /var/www/wordpress
 fi
 
 
-wp core install --allow-root \
-	--path=/var/www/wordpress --title=ft_wordpress --url=iguidado.42.fr \
-	--admin_user=Marion --admin_password=Cotillard \
-	--admin_email=Macotill@nulpar.com --skip-email
+#wp core install --allow-root \
+#	--path=/var/www/wordpress --title=ft_wordpress --url=iguidado.42.fr \
+#	--admin_user=Marion --admin_password=Cotillard \
+#	--admin_email=Macotill@nulpar.com --skip-email
 
 #if [ ! -d /var/www/wordpress/ ]
 #then
