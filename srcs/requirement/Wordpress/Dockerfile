@@ -27,7 +27,7 @@ sed -i "s/HOST_REDIS/${WORDPRESS_REDIS_HOST}/" /root/conf/wp-config.php
 
 RUN wget https://fr.wordpress.org/latest-fr_FR.tar.gz -O - | zcat | tar x -C /root/
 
-RUN cp /root/conf/wp-config.php /root/wordpress/
+RUN cp /root/conf/wp-config.php /root/wordpress/wp-config.php
 
 RUN sed "s/127.0.0.1/0.0.0.0/" -i /etc/php8/php-fpm.d/www.conf
 
