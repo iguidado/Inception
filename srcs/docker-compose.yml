@@ -16,15 +16,8 @@ services:
       - /home/iguidado/data/wordpress:/var/www/wordpress/
     depends_on:
       - wordpress
- 
+
   wordpress:
-    #   environment:
-    #     - WP_PATH=${WP_PATH}
-    #     - WORDPRESS_DB_HOST=${MARIADB_HOST}
-    #     - WORDPRESS_DB_USER=${MARIADB_USER}
-    #     - WORDPRESS_DB_PASS=${MARIADB_PASSWORD}
-    #     - WORDPRESS_DB_NAME=${MARIADB_DATABASE}
-    #     - WORDPRESS_TABLE_PREFIX=${TABLE_PREFIX}
     build:
       context: ./requirement/Wordpress
       args:
@@ -67,7 +60,7 @@ services:
 
   adminer:
     build:
-      context: requirement/Adminer/
+      context: requirement/Bonus/Adminer/
     container_name: adminer
     depends_on:
       - wordpress
@@ -79,6 +72,29 @@ services:
       - backend
     volumes:
       - /home/iguidado/data/wordpress:/var/www/wordpress/
+
+  redis:
+    build:
+      context: requirement/Bonus/Redis/
+    container_name: redis
+    restart: on-failure
+    expose:
+      - "6379"
+    networks:
+      - backend
+
+        # ftp:
+        #   build:
+        #     context: requirement/Bonus/Ftp/
+        #   container_name: ftp
+        #   restart: on-failure
+        #   ports:
+        #     - "0.0.0.0:20:20"
+        #     - "0.0.0.0:21:21"
+        #   networks:
+        #     - backend
+        #   volumes:
+        #     - /home/iguidado/data/wordpress:/var/lib/ftp/
 
       # volumes:
       #   config:
