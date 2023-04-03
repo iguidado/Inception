@@ -13,7 +13,7 @@ services:
       - frontend
     restart: on-failure
     volumes:
-      - /home/iguidado/data/wordpress:/var/www/wordpress/
+      - website:/var/www/wordpress/
     depends_on:
       - wordpress
 
@@ -38,7 +38,7 @@ services:
       - backend
     restart: on-failure
     volumes:
-      - /home/iguidado/data/wordpress:/var/www/wordpress/
+      - website:/var/www/wordpress/
 
   mariadb:
     env_file: .env
@@ -50,7 +50,8 @@ services:
         - DB_ADMIN_PASS=${MARIADB_PASSWORD}
         - MARIADB_ROOT_PASS=${MARIADB_ROOT_PASS}
     volumes:
-      - /home/iguidado/data/db:/var/lib/mysql/
+      - database:/var/lib/mysql/
+        #      - /home/iguidado/data/db:/var/lib/mysql/
     container_name: mariadb
     expose:
       - "3306"
@@ -71,7 +72,8 @@ services:
       - frontend
       - backend
     volumes:
-      - /home/iguidado/data/wordpress:/var/www/wordpress/
+      - website:/var/www/wordpress/
+        # - /home/iguidado/data/wordpress:/var/www/wordpress/
 
   redis:
     build:
@@ -96,18 +98,14 @@ services:
         #   volumes:
         #     - /home/iguidado/data/wordpress:/var/lib/ftp/
 
-      # volumes:
-      #   config:
-      #     driver_opts:
-      #       o : volume
-      #       type : none
-      #       device: /home/lescribe/Documents/Depot/inception/srcs/nginx/test/
-      #   type : volume
-      #   source : ./nginx/test
-      #   target : /etc/nginx/http.d/
-      #   name: config
-      #   driver_opts:
-      #     device: ./nginx/test/
-      # website:
-      #   driver_opts:
-      #     device: ./nginx/site/
+volumes:
+  website:
+    driver_opts:
+      o : bind
+      type : none
+      device: /home/iguidado/data/wordpress
+  database:
+    driver_opts:
+      o : bind
+      type : none
+      device: /home/iguidado/data/db

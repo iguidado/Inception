@@ -1,7 +1,7 @@
 all : build up
 
 up :
-	sudo docker compose up -d
+	sudo docker compose up -d --build
 
 build:
 	sudo docker compose build
