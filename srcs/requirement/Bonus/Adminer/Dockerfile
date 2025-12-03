@@ -1,4 +1,4 @@
-FROM alpine:3.18
+FROM alpine:3.23
 
 RUN apk add --no-cache php-fpm wget php-common php-session php-mysqli
 
