@@ -1,0 +1,18 @@
+on:
+  push:
+    branches: [main, ci]
+  workflow_dispatch:
+jobs:
+  test_stack:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: check docker-compose file
+        run: docker compose -f srcs/docker-compose.yml config
+      - name: create .env file
+      - name: build docker images
+      - name: run container
+      - name: tests services
+      - name: scan vulnerabilities
+      - name: Clean up Docker resources

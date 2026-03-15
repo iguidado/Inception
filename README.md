@@ -1,120 +1,69 @@
-# Inception
+# Inception 🚀
 
-# Requirement
+This repository contains the Inception project, a comprehensive Docker-based environment for web development, focusing on setting up a robust web stack including Nginx, WordPress, MariaDB, and various supporting services.
 
-- [ ] container Nginx with Tlsv1.2 or Tlsv1.3
- - [ ] Nginx should proxy php on container bellow
- - [ ] it is the entrypoint for stack on port 443
+## Project Overview 📋
 
-- [ ] container Wordpress + php-fpm
+Inception aims to provide a self-contained, reproducible development environment using Docker. It focuses on essential components for modern web applications, emphasizing security and efficient resource management.
 
-- [ ] container with MariaDB
-	- [ ] 2 user on MariaDB
+## Features ✨
 
-- [ ] 1 volume for website: it will be shared between wordpress and nginx container
-- [ ] Second volume for Database it shall be exported from previous Mariadb installation
-		Or copied from a previous container
+*   **Containerized Nginx:** A secure Nginx container configured with TLSv1.2 or TLSv1.3, acting as the primary entry point for the web stack on port 443.
+*   **WordPress & PHP-FPM Integration:** Seamless integration of WordPress with PHP-FPM for dynamic content delivery.
+*   **MariaDB Database:** A robust MariaDB container with support for multiple database users.
+*   **Volume Management:**
+    *   A dedicated volume for website data, shared between WordPress and Nginx containers.
+    *   A separate volume for database persistence, allowing for data export and import.
+*   **Service Linking:** Efficient inter-container communication using Docker's linking capabilities.
+*   **Bonus Services:** Includes optional bonus services like Adminer and FTP for enhanced development and management.
+*   **Docker Compose Orchestration:** Simplified deployment and management of the entire stack using `docker-compose`.
 
-- [ ] usage of --links or network:host is forbidden
+## Installation 🛠️
 
-- [ ] container should restart in case of crash
- - Shall be done by adding `restart : on-failure` node to docker compose services
-> configuration
+This project utilizes Docker and Docker Compose for deployment. Ensure you have Docker and Docker Compose installed on your system.
 
-- [ ] Docker compose to orchestrate container
+1.  **Clone the Repository:**
+    ```bash
+    git clone https://github.com/iguidado/Inception.git
+    cd Inception
+    ```
 
-## Docker
-### Docker compose
-Docker compose is a tool to orchestrate your container. You can use it on
-command line in an imperative way or write a docker-compose.yml to use it in a
-declarative way.
+2.  **Set Up Docker Environment:**
+    The `setup_docker.sh` script assists in preparing the necessary Docker environment.
+    ```bash
+    chmod +x setup_docker.sh
+    ./setup_docker.sh
+    ```
+    *Note: This script may require specific permissions or configurations depending on your operating system.*
 
-We will do latest since it is easier to build up architecture and maintain
-project. Using docker compose as command line is ineffective when you need
-to manage more than one container at the same time.
+3.  **Configure Environment Variables (if applicable):**
+    If there are `.env` files within the `srcs` directory, ensure they are correctly configured for your environment. For example, `srcs/.env` might contain database credentials or other sensitive information.
 
-Yaml file are commonly used as configuration file. It syntax organization looks
-like python (it is really indentation sensitive).
-Note that JSON syntax is a valid yaml substitute.
+4.  **Build and Run Docker Containers:**
+    Use Docker Compose to build the images and start the services.
+    ```bash
+    docker-compose up -d
+    ```
+    This command will download necessary images, build custom ones if needed, and start all defined services in detached mode.
 
-We shall build a first docker-compose including only official docker images.
-You should check images tag to build dependendly of your architecture.
+## Usage 💡
 
----
-## Nginx
+Once the Docker containers are running, you can access the services:
 
-Nginx is a web server application serving static file page (html, css, you name it).
-It also double up as a reverse proxy permitting fancy operation like forwarding
-request to php-server or other web server, load balancing, etc...
+*   **Nginx:** Accessible via `https://localhost` (or the configured domain) on port 443.
+*   **WordPress:** Access the WordPress admin panel and frontend through the Nginx entry point.
+*   **MariaDB:** Connect to the MariaDB instance using the credentials defined in your Docker Compose configuration or `.env` files.
+*   **Adminer (Bonus):** If enabled, Adminer will be accessible via its designated port, providing a web-based database management interface.
+*   **FTP (Bonus):** If enabled, you can connect to the FTP server using the configured credentials for file transfers.
 
-Configuration file provided will greatly change depending on system implementation.
-Nginx configuration is split in 2 :
-- first there is main configuration file hosting global configuration affecting
-server. Usually it is repertoried as '/etc/nginx/nginx.conf'
+**Example: Accessing WordPress**
 
-- Linked to it there is virtual host configuration which will define configuration
-of each website. It is whom will we modify to treat request to our website
+After the containers are up, navigate to `https://localhost` in your web browser to begin the WordPress setup process.
 
-Alpine implementation store virtual host configuration file in `/etc/nginx/http.d/`.
+**Example: Connecting to MariaDB (from another container or locally if configured)**
 
-Default Alpine installation treat all request as 404 error (not found).
-
+```bash
+# Example using docker exec to run a mysql client inside the mariadb container
+docker exec -it inception_mariadb_1 mysql -u your_db_user -p your_database_name
 ```
-# This is a default site configuration which will simply return 404, preventing
-# chance access to any other virtualhost.
-
-server {
-	listen 80 default_server;
-	listen [::]:80 default_server;
-
-	# Everything is a 404
-	location / {
-		return 404;
-	}
-
-	# You may need this to prevent return 404 recursion.
-	location = /404.html {
-		internal;
-	}
-}
-```
-
-Since Alpine nginx default configuration is lacking in functionality we will implement some more
-
-Let's see basic virtual host config' entry
-
-it is structured in blocks. Top blocks is server one.
-
-```
-server {
-
-}
-```
-
-you should define a server block by website.
-
-Nginx server should redirect php request to wordpress container on port 9000.
-These request shall be treated by php-fpm service.
-
-```
-
-```
-
-### SSL configuration
-https://stackoverflow.com/questions/10175812/how-to-generate-a-self-signed-ssl-certificate-using-openssl
-https://www.nginx.com/blog/secure-distribution-ssl-private-keys-nginx/
-
----
-
-## Wordpress
-Wordpress container will contain wordpress files (since it is a website) and php-fpm
-server as said above.
-
-## Mariadb
-Mariadb shall be pre-configured with Wordpress databases, admin and user.
-
-
-## Misc
-wordpress admin :
-	user : inception
-	password : inception2022
+*Replace `inception_mariadb_1`, `your_db_user`, and `your_database_name` with your actual container name and credentials.*
