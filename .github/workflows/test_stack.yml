@@ -11,6 +11,7 @@ jobs:
       - name: check docker-compose file
         run: docker compose -f srcs/docker-compose.yml config
       - name: create .env file
+        run: make env-ci
       - name: build docker images
       - name: run container
       - name: tests services

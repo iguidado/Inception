@@ -6,8 +6,13 @@ up :
 build:
 	sudo docker compose --project-directory ./srcs build
 
+
+
 print :
 	sudo docker images -aq
+
+env-ci:
+	bash ./scripts/env_templating.sh ./srcs/.env.example
 
 stop:
 	sudo docker compose --project-directory ./srcs stop
