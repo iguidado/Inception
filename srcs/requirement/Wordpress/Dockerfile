@@ -1,4 +1,4 @@
-FROM alpine:3.18
+FROM alpine:3.23
 
 RUN apk add --no-cache php-fpm php php-phar php-common php-mbstring php-bz2 php-mysqli mariadb wget curl
 
