@@ -29,9 +29,9 @@ RUN wget https://fr.wordpress.org/latest-fr_FR.tar.gz -O - | zcat | tar x -C /ro
 
 RUN cp /root/conf/wp-config.php /root/wordpress/wp-config.php
 
-RUN sed "s/127.0.0.1/0.0.0.0/" -i /etc/php8/php-fpm.d/www.conf
+RUN sed "s/127.0.0.1/0.0.0.0/" -i /etc/php*/php-fpm.d/www.conf
 
-RUN echo "access.log = /proc/self/fd/2" >> /etc/php8/php-fpm.conf && \
-sed -i "s:;error_log = .*:error_log = /proc/self/fd/2:" /etc/php8/php-fpm.conf
+#RUN echo "access.log = /proc/self/fd/2" >> /etc/php*/php-fpm.conf && \
+#sed -i "s:;error_log = .*:error_log = /proc/self/fd/2:" /etc/php*/php-fpm.conf
 
 CMD ["/root/tools/entrypoint.sh"]

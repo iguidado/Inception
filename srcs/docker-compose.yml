@@ -51,7 +51,6 @@ services:
         - MARIADB_ROOT_PASS=${MARIADB_ROOT_PASS}
     volumes:
       - database:/var/lib/mysql/
-        #      - /home/iguidado/data/db:/var/lib/mysql/
     container_name: mariadb
     expose:
       - "3306"
@@ -73,7 +72,6 @@ services:
       - backend
     volumes:
       - website:/var/www/wordpress/
-        # - /home/iguidado/data/wordpress:/var/www/wordpress/
 
   redis:
     build:
@@ -103,9 +101,9 @@ volumes:
     driver_opts:
       o : bind
       type : none
-      device: /home/iguidado/data/wordpress
+      device: ${USERPATH}/data/wordpress
   database:
     driver_opts:
       o : bind
       type : none
-      device: /home/iguidado/data/db
+      device: ${USERPATH}/data/db
