@@ -8,10 +8,10 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      - name: check docker-compose file
-        run: docker compose -f srcs/docker-compose.yml config -q
       - name: create .env file
         run: make env-ci
+      - name: check docker-compose file
+        run: docker compose -f srcs/docker-compose.yml config -q
       - name: build docker images
         run: make build-ci
       - name: run container
