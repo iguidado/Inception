@@ -1,12 +1,19 @@
 all : build up
 
 up :
-	sudo docker compose --project-directory ./srcs up -d --build
+	sudo docker compose --project-directory ./srcs up -d
+
+up-ci:
+	sudo docker compose -f ./srcs/docker-compose.yml -f ./srcs/docker-compose.ci.yml up -d
 
 build:
 	sudo docker compose --project-directory ./srcs build
 
+wait-ci:
+	bash ./scripts/wait_for_stack.sh
 
+build-ci:
+	sudo docker compose -f ./srcs/docker-compose.yml -f ./srcs/docker-compose.ci.yml build
 
 print :
 	sudo docker images -aq

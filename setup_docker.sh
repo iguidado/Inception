@@ -1,7 +1,5 @@
 #!/bin/bash
 
-LOGIN=iguidado
-
 #Too use apt over https
 
 set -x

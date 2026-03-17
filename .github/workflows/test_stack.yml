@@ -13,7 +13,15 @@ jobs:
       - name: create .env file
         run: make env-ci
       - name: build docker images
+        run: make build-ci
       - name: run container
-      - name: tests services
+        run: make up-ci
+      - name: wait for stacks to up
+        run: make wait-ci
+      - name: test nginx
+        run: curl -k https://localhost
+      - name: test wordpress
+        run: curl -k https://localhost/wp-login.php
       - name: scan vulnerabilities
       - name: Clean up Docker resources
+        run: make prune
