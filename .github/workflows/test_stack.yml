@@ -9,7 +9,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       - name: check docker-compose file
-        run: docker compose -f srcs/docker-compose.yml config
+        run: docker compose -f srcs/docker-compose.yml config -q
       - name: create .env file
         run: make env-ci
       - name: build docker images
@@ -22,6 +22,6 @@ jobs:
         run: curl -k https://localhost
       - name: test wordpress
         run: curl -k https://localhost/wp-login.php
-#      - name: scan vulnerabilities
+#     - name: scan vulnerabilities
       - name: Clean up Docker resources
         run: make prune
