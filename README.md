@@ -14,8 +14,8 @@ Inception aims to provide a self-contained, reproducible development environment
 *   **Volume Management:**
     *   A dedicated volume for website data, shared between WordPress and Nginx containers.
     *   A separate volume for database persistence, allowing for data export and import.
-*   **Service Linking:** Efficient inter-container communication using Docker's linking capabilities.
-*   **Bonus Services:** Includes optional bonus services like Adminer and FTP for enhanced development and management.
+*   **Service Linking:** Efficient inter-container communication using Docker's network capabilities. (no link allowed in requirements)
+*   **Bonus Services:** Includes optional bonus services like Adminer and Redis.
 *   **Docker Compose Orchestration:** Simplified deployment and management of the entire stack using `docker-compose`.
 
 ## Installation 
