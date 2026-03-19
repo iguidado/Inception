@@ -21,6 +21,8 @@ USERPATH=$HOME #defining home path now because docker daemon run with root accou
 cp $1 ./srcs/.env
 
 echo "$USERPATH"
+
+
 sed "s|PLACEHOLDER_HOME|${USERPATH}|" -i ./srcs/.env #Changed delimiter because path can containt '/'
 for i in {1..2}; do
     RANDOM_NAME="${ADJECTIVES[$RANDOM % ${#ADJECTIVES[@]}]}_${NAMES[$RANDOM % ${#NAMES[@]}]}"

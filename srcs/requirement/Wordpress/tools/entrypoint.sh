@@ -7,4 +7,7 @@ fi
 
 chown -R nobody:nobody /var/www/wordpress
 
-php-fpm8 -F
+tail -f /dev/null
+#PHP=$(ls /bin | grep "php-fpm*")
+
+#"${PHP}" -F

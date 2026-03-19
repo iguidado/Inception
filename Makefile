@@ -1,9 +1,15 @@
 all : build up
 
+ci: env-ci build-ci up-ci
+
 up :
+	mkdir -p $${HOME}/data/db
+	mkdir -p $${HOME}/data/wordpress
 	sudo docker compose --project-directory ./srcs up -d
 
 up-ci:
+	mkdir -p $${HOME}/data/db
+	mkdir -p $${HOME}/data/wordpress 
 	sudo docker compose -f ./srcs/docker-compose.yml -f ./srcs/docker-compose.ci.yml up -d
 
 build:
@@ -34,6 +40,7 @@ fclean : clean
 	-sudo docker rmi -f $$(sudo docker images -aq)
 
 prune : fclean
+	rm -r mkdir $${HOME}/data
 	docker volume rm $$(docker volume ls -q)
 
 re: prune all
