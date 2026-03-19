@@ -5,39 +5,42 @@ ci: env-ci build-ci up-ci
 up :
 	mkdir -p $${HOME}/data/db
 	mkdir -p $${HOME}/data/wordpress
-	sudo docker compose --project-directory ./srcs up -d
+	docker compose --project-directory ./srcs up -d
 
 up-ci:
 	mkdir -p $${HOME}/data/db
 	mkdir -p $${HOME}/data/wordpress 
-	sudo docker compose -f ./srcs/docker-compose.yml -f ./srcs/docker-compose.ci.yml up -d
+	docker compose -f ./srcs/docker-compose.yml -f ./srcs/docker-compose.ci.yml up -d
 
 build:
-	sudo docker compose --project-directory ./srcs build
+	docker compose --project-directory ./srcs build
 
 wait-ci:
 	bash ./scripts/wait_for_stack.sh
 
+logs-ci:
+	docker compose -f srcs/docker-compose.yml -f srcs/docker-compose.ci.yml logs
+
 build-ci:
-	sudo docker compose -f ./srcs/docker-compose.yml -f ./srcs/docker-compose.ci.yml build
+	docker compose -f ./srcs/docker-compose.yml -f ./srcs/docker-compose.ci.yml build
 
 print :
-	sudo docker images -aq
+	docker images -aq
 
 env-ci:
 	bash ./scripts/env_templating.sh ./srcs/.env.example
 
 stop:
-	sudo docker compose --project-directory ./srcs stop
+	docker compose --project-directory ./srcs stop
 
 rm: stop
-	sudo docker compose --project-directory ./srcs rm
+	docker compose --project-directory ./srcs rm
 
 clean :
-	-sudo docker rm -f $$(sudo docker ps -aq)
+	-docker rm -f $$(docker ps -aq)
 
 fclean : clean
-	-sudo docker rmi -f $$(sudo docker images -aq)
+	-docker rmi -f $$(docker images -aq)
 
 prune : fclean
 	rm -r mkdir $${HOME}/data
