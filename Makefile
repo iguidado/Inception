@@ -34,7 +34,7 @@ stop:
 	docker compose --project-directory ./srcs stop
 
 rm: stop
-	docker compose --project-directory ./srcs rm
+	docker compose --project-directory ./srcs rm -f
 
 clean :
 	-docker rm -f $$(docker ps -aq)
@@ -43,8 +43,7 @@ fclean : clean
 	-docker rmi -f $$(docker images -aq)
 
 prune : fclean
-	rm -r mkdir $${HOME}/data
-	docker volume rm $$(docker volume ls -q)
+	-docker volume rm $$(docker volume ls -q)
 
 re: prune all
 

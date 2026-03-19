@@ -24,4 +24,4 @@ jobs:
         run: curl -k https://localhost/wp-login.php
 #     - name: scan vulnerabilities
       - name: Clean up Docker resources
-        run: make prune
+        run: make rm
