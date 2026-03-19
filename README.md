@@ -71,3 +71,7 @@ You can access db from other container using `DB_ADMIN*` credentials.
 docker exec -it mariadb mysql -u your_db_user -p DB_NAME
 ```
 *Replace `inception_mariadb_1`, `your_db_user`, and `your_database_name` with your actual container name and credentials.*
+
+## Stack architecture
+
+![stack_architecture](Architecure_Inception.png)
