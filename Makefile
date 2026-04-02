@@ -1,50 +1,32 @@
 all : build up
 
-ci: env-ci build-ci up-ci
-
 up :
-	mkdir -p $${HOME}/data/db
-	mkdir -p $${HOME}/data/wordpress
-	docker compose --project-directory ./srcs up -d
-
-up-ci:
-	mkdir -p $${HOME}/data/db
-	mkdir -p $${HOME}/data/wordpress 
-	docker compose -f ./srcs/docker-compose.yml -f ./srcs/docker-compose.ci.yml up -d
+	sudo docker compose --project-directory ./srcs up -d
 
 build:
-	docker compose --project-directory ./srcs build
-
-wait-ci:
-	bash ./scripts/wait_for_stack.sh
-
-logs-ci:
-	docker compose -f srcs/docker-compose.yml -f srcs/docker-compose.ci.yml logs
-
-build-ci:
-	docker compose -f ./srcs/docker-compose.yml -f ./srcs/docker-compose.ci.yml build
+	mkdir -p /home/lambda/data/db
+	mkdir -p /home/lambda/data/wordpress
+	sudo docker compose --project-directory ./srcs build
 
 print :
-	docker images -aq
-
-env-ci:
-	bash ./scripts/env_templating.sh ./srcs/.env.example
+	sudo docker images -aq
 
 stop:
-	docker compose --project-directory ./srcs stop
+	sudo docker compose --project-directory ./srcs stop
 
 rm: stop
-	docker compose --project-directory ./srcs rm -f
+	sudo docker compose --project-directory ./srcs rm
 
 clean :
-	-docker rm -f $$(docker ps -aq)
+	-sudo docker rm -f $$(sudo docker ps -aq)
 
 fclean : clean
-	-docker rmi -f $$(docker images -aq)
+	-sudo docker rmi -f $$(sudo docker images -aq)
 
-prune : fclean
+purge : fclean
+	-sudo rm -rf /home/lambda/data
 	-docker volume rm $$(docker volume ls -q)
 
-re: prune all
+re: purge all
 
-.PHONY: all up clean fclean build stop rm print prune
+.PHONY: all up clean fclean build stop rm print purge

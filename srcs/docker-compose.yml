@@ -6,12 +6,13 @@ services:
   nginx:
     build:
       context: ./requirement/Nginx/
+    hostname: iguidado.42.fr
     container_name: nginx
     ports:
       - "443:443"
     networks:
       - frontend
-    restart: on-failure
+    restart: always
     volumes:
       - website:/var/www/wordpress/
     depends_on:
@@ -28,6 +29,17 @@ services:
         - WORDPRESS_DB_NAME=${MARIADB_DATABASE}
         - WORDPRESS_REDIS_HOST=${REDIS_HOST}
         - WORDPRESS_TABLE_PREFIX=${TABLE_PREFIX}
+    environment:
+      - WP_PATH=${WP_PATH}
+      - WORDPRESS_DB_HOST=${MARIADB_HOST}
+      - WORDPRESS_DB_USER=${MARIADB_USER}
+      - WORDPRESS_DB_PASS=${MARIADB_PASSWORD}
+      - WORDPRESS_DB_NAME=${MARIADB_DATABASE}
+      - WORDPRESS_REDIS_HOST=${REDIS_HOST}
+      - WORDPRESS_TABLE_PREFIX=${TABLE_PREFIX}
+      - WP_ADMIN_USER=${WP_ADMIN_USER}
+      - WP_ADMIN_PASS=${WP_ADMIN_PASS}
+      - WP_ADMIN_MAIL=${WP_ADMIN_MAIL}
     container_name: wordpress
     expose:
       - "9000"
@@ -36,7 +48,7 @@ services:
     networks:
       - frontend
       - backend
-    restart: on-failure
+    restart: always
     volumes:
       - website:/var/www/wordpress/
 
@@ -56,7 +68,7 @@ services:
       - "3306"
     networks:
       - backend
-    restart: on-failure
+    restart: always
 
   adminer:
     build:
@@ -64,7 +76,7 @@ services:
     container_name: adminer
     depends_on:
       - wordpress
-    restart: on-failure
+    restart: always
     expose:
       - "9000"
     networks:
@@ -77,33 +89,22 @@ services:
     build:
       context: requirement/Bonus/Redis/
     container_name: redis
-    restart: on-failure
+    restart: always
     expose:
       - "6379"
     networks:
       - backend
 
-        # ftp:
-        #   build:
-        #     context: requirement/Bonus/Ftp/
-        #   container_name: ftp
-        #   restart: on-failure
-        #   ports:
-        #     - "0.0.0.0:20:20"
-        #     - "0.0.0.0:21:21"
-        #   networks:
-        #     - backend
-        #   volumes:
-        #     - /home/iguidado/data/wordpress:/var/lib/ftp/
-
 volumes:
   website:
+    driver: local
     driver_opts:
       o : bind
       type : none
-      device: ${USERPATH}/data/wordpress
+      device: /home/lambda/data/wordpress
   database:
+    driver: local
     driver_opts:
       o : bind
       type : none
-      device: ${USERPATH}/data/db
+      device: /home/lambda/data/db

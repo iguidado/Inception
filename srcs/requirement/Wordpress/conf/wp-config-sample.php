@@ -88,7 +88,7 @@ $table_prefix = 'wp_';
  */
 define( 'WP_DEBUG', false );
 
-define( 'WP_REDIS_HOST', 'HOST_REDIS');
+define( 'WP_REDIS_HOST', 'redis');
 
 /* C’est tout, ne touchez pas à ce qui suit ! Bonne publication. */
 

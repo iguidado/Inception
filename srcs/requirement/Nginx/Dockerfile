@@ -1,4 +1,4 @@
-FROM alpine:3.18
+FROM alpine:3.16
 
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -8,10 +8,6 @@ RUN apk update && apk add --no-cache nginx openssl
 
 #------------------------------------------------------------------------------
 
-#RUN echo -e "<?php\nphpinfo();" > /var/www/html/index.php
-
-#RUN chmod +x /root/srcs/scripts/autoindex.sh &&\
-#	./root/srcs/scripts/autoindex.sh $AUTO_INDEX
 
 #Generate ssl certificate
 RUN openssl req -x509 -nodes -days 36500 -newkey rsa:2048\
@@ -20,6 +16,10 @@ RUN openssl req -x509 -nodes -days 36500 -newkey rsa:2048\
 #------------------------------------------------------------------------------
 
 RUN  ln -s /dev/stdout /var/log/nginx/access.log && ln -s /dev/stderr /var/log/nginx/error.log 
+
+RUN sed -i "s/user nginx/user nobody/" /etc/nginx/nginx.conf
+
+RUN chown -R nobody:nobody /var/lib/nginx
 
 COPY conf/default.conf /etc/nginx/http.d/
 

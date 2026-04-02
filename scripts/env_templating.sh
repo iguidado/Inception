@@ -24,7 +24,7 @@ echo "$USERPATH"
 
 
 sed "s|PLACEHOLDER_HOME|${USERPATH}|" -i ./srcs/.env #Changed delimiter because path can containt '/'
-for i in {1..2}; do
+for i in {1..6}; do
     RANDOM_NAME="${ADJECTIVES[$RANDOM % ${#ADJECTIVES[@]}]}_${NAMES[$RANDOM % ${#NAMES[@]}]}"
     RANDOM_PASS="$(openssl rand -hex 16)"
 
