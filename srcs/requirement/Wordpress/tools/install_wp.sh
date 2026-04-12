@@ -19,6 +19,6 @@ wp --allow-root --path=${WP_PATH} db create
 
 echo "Installing Wordpress"
 wp --allow-root --path=${WP_PATH} core install \
-	--url=localhost/wordpress/ --title=ft_wordpress \
+	--url=localhost --title=ft_wordpress \
 	--admin_user=${WP_ADMIN_USER} --admin_password=${WP_ADMIN_PASS} \
 	--admin_email=${WP_ADMIN_MAIL} --skip-email
