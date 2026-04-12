@@ -101,10 +101,10 @@ volumes:
     driver_opts:
       o : bind
       type : none
-      device: /home/lambda/data/wordpress
+      device: ${USERPATH}/data/wordpress
   database:
     driver: local
     driver_opts:
       o : bind
       type : none
-      device: /home/lambda/data/db
+      device: ${USERPATH}/data/db
