@@ -1,4 +1,4 @@
-FROM php:5.6
+FROM php:8.5
 ENV phpunit_verison 5.7
 ENV redis_version 4.0.11
 
