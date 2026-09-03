@@ -1,4 +1,4 @@
-FROM alpine:3.16
+FROM alpine:3.24
 
 RUN addgroup -S mysql && adduser -S -g mysql mysql
 
